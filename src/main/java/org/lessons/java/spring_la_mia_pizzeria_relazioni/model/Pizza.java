@@ -1,11 +1,15 @@
 package org.lessons.java.spring_la_mia_pizzeria_relazioni.model;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +20,7 @@ import jakarta.validation.constraints.Size;
 @Table(name = "pizzas")
 public class Pizza {
 
+  // VALORI
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
@@ -35,6 +40,10 @@ public class Pizza {
 
   @NotBlank
   private String image;
+
+  // RELAZIONI
+  @OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
+  private List<SpecialOffer> specialOffers;
 
   // GETTER E SETTER
   public Integer getId() {
@@ -75,5 +84,13 @@ public class Pizza {
 
   public void setImage(String image) {
     this.image = image;
+  }
+
+  public List<SpecialOffer> getSpecialOffers() {
+    return specialOffers;
+  }
+
+  public void setSpecialOffers(List<SpecialOffer> specialOffers) {
+    this.specialOffers = specialOffers;
   }
 }

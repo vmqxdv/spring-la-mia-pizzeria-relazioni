@@ -49,6 +49,11 @@
                 <a th:href="@{/pizzas/{id}(id=*{id})}" class="btn btn-sm btn-outline-primary">Dettagli</a>
                 <a th:href="@{/pizzas/edit/{id}(id=*{id})}" class="btn btn-sm btn-outline-primary">Modifica</a>
 
+                <a th:href="@{/pizzas/{id}/special-offers(id=*{id})}" class="btn btn-sm btn-outline-success"
+                  title="Crea offerta speciale per questa pizza">
+                  Crea offerta
+                </a>
+
                 <!-- Bottone per far apparire modale -->
                 <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
                   th:attr="data-bs-target=${'#delete-modal-' + pizza.id}">Elimina</button>
