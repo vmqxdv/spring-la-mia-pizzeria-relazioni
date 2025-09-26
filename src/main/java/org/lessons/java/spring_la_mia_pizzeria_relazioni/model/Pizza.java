@@ -8,7 +8,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+// import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
@@ -29,10 +32,11 @@ public class Pizza {
   @Size(min = 2, max = 50, message = "Il nome deve avere tra 2 e 50 caratteri")
   private String name;
 
-  @NotBlank
-  @Lob
-  @Size(min = 5, max = 500, message = "Gli ingredienti devono avere tra 5 e 500 caratteri")
-  private String ingredients;
+  // @NotBlank
+  // @Lob
+  // @Size(min = 5, max = 500, message = "Gli ingredienti devono avere tra 5 e 500
+  // caratteri")
+  // private String ingredients;
 
   @NotNull
   @DecimalMin(value = "0.0", inclusive = true, message = "Non può avere un prezzo minore di 0.0")
@@ -44,6 +48,10 @@ public class Pizza {
   // RELAZIONI
   @OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
   private List<SpecialOffer> specialOffers;
+
+  @ManyToMany(cascade = { CascadeType.REMOVE })
+  @JoinTable(name = "ingredient_pizza", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+  private List<Ingredient> ingredients;
 
   // GETTER E SETTER
   public Integer getId() {
@@ -62,13 +70,13 @@ public class Pizza {
     this.name = name;
   }
 
-  public String getIngredients() {
-    return ingredients;
-  }
+  // public String getIngredients() {
+  // return ingredients;
+  // }
 
-  public void setIngredients(String ingredients) {
-    this.ingredients = ingredients;
-  }
+  // public void setIngredients(String ingredients) {
+  // this.ingredients = ingredients;
+  // }
 
   public BigDecimal getPrice() {
     return price;
@@ -92,5 +100,13 @@ public class Pizza {
 
   public void setSpecialOffers(List<SpecialOffer> specialOffers) {
     this.specialOffers = specialOffers;
+  }
+
+  public List<Ingredient> getIngredients() {
+    return ingredients;
+  }
+
+  public void setIngredients(List<Ingredient> ingredients) {
+    this.ingredients = ingredients;
   }
 }

@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-8">
           <h2>[[*{name}]]</h2>
-          <h5 class="text-muted mb-3">Ingredienti: [[*{ingredients}]]</h5>
+          <h5 class="text-muted mb-3">Ingredienti: [[*{ingredients.toString().replaceAll('[\[\]]','')}]]</h5>
           <p class="fs-4"><strong>[[*{price}]] €</strong></p>
           <a th:href="@{/pizzas}" class="btn btn-secondary mt-3">Torna alla lista</a>
         </div>
